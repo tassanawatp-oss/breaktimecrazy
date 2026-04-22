@@ -22,6 +22,11 @@ const ControlPanel: React.FC<Props> = ({ remaining, status }) => {
     await invoke("start_timer", { workMins: safeWorkMins, breakMins: safeBreakMins });
   };
 
+  const handleStartBreak = async () => {
+    const safeBreakMins = Math.max(1, breakMins);
+    await invoke("start_break", { breakMins: safeBreakMins });
+  };
+
   const handleStop = async () => {
     await invoke("stop_timer");
   };
@@ -90,12 +95,20 @@ const ControlPanel: React.FC<Props> = ({ remaining, status }) => {
 
       <div className="flex gap-4 w-full">
         {status === "Idle" ? (
-          <button
-            onClick={handleStart}
-            className="flex-1 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 transition-colors py-3 rounded-lg font-bold shadow-lg"
-          >
-            Start Work
-          </button>
+          <>
+            <button
+              onClick={handleStart}
+              className="flex-1 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 transition-colors py-3 rounded-lg font-bold shadow-lg"
+            >
+              Start Work
+            </button>
+            <button
+              onClick={handleStartBreak}
+              className="flex-1 bg-green-600 hover:bg-green-500 active:bg-green-700 transition-colors py-3 rounded-lg font-bold shadow-lg"
+            >
+              Start Break
+            </button>
+          </>
         ) : (
           <button
             onClick={handleStop}

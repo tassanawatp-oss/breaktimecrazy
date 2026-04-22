@@ -30,6 +30,27 @@ async fn start_timer(
 }
 
 #[tauri::command]
+async fn start_break(
+    break_mins: u32,
+    app_handle: tauri::AppHandle,
+    state: tauri::State<'_, Arc<AppState>>,
+) -> Result<(), String> {
+    let mut status = state.status.lock().await;
+    let mut remaining = state.remaining_secs.lock().await;
+    let mut break_secs = state.break_secs.lock().await;
+    
+    *status = AppStatus::OnBreak;
+    *break_secs = break_mins * 60;
+    *remaining = *break_secs;
+
+    let _ = app_handle.emit("state-change", "OnBreak");
+    let _ = app_handle.emit("timer-tick", *remaining);
+    window_manager::show_break_screens(&app_handle);
+    
+    Ok(())
+}
+
+#[tauri::command]
 async fn stop_timer(
     app_handle: tauri::AppHandle,
     state: tauri::State<'_, Arc<AppState>>,
@@ -88,7 +109,7 @@ pub fn run() {
             Ok(())
         })
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![start_timer, stop_timer])
+        .invoke_handler(tauri::generate_handler![start_timer, stop_timer, start_break])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
