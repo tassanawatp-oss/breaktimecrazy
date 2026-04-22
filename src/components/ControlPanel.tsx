@@ -34,10 +34,10 @@ const ControlPanel: React.FC<Props> = ({ remaining, status }) => {
   return (
     <div 
       data-tauri-drag-region
-      className="h-screen w-screen bg-slate-950 text-white flex flex-col p-6 pt-8 font-sans overflow-y-auto selection:bg-blue-500/30"
+      className="h-screen w-screen bg-slate-950 text-white flex flex-col p-5 pt-7 font-sans overflow-y-auto selection:bg-blue-500/30"
     >
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center font-bold text-sm shadow-lg shadow-blue-500/20">
             BT
@@ -53,29 +53,29 @@ const ControlPanel: React.FC<Props> = ({ remaining, status }) => {
       </div>
 
       {/* Timer Display Card */}
-      <div className="text-center mb-6 py-6 bg-gradient-to-b from-slate-900 to-slate-950 rounded-2xl border border-slate-800 shadow-xl shadow-black/40">
-        <div className="text-[10px] font-bold text-blue-500 uppercase tracking-[0.2em] mb-1">
+      <div className="text-center mb-4 py-4 bg-gradient-to-b from-slate-900 to-slate-950 rounded-2xl border border-slate-800 shadow-xl shadow-black/40">
+        <div className="text-[10px] font-bold text-blue-500 uppercase tracking-[0.2em] mb-0.5">
           Time Remaining
         </div>
-        <div className="text-6xl font-extrabold tracking-tighter tabular-nums text-white drop-shadow-sm">
+        <div className="text-5xl font-extrabold tracking-tighter tabular-nums text-white drop-shadow-sm">
           {formatTime(remaining)}
         </div>
       </div>
 
       {status === "Idle" && (
-        <div className="flex flex-col gap-5 mb-8">
+        <div className="flex flex-col gap-4 mb-4">
           {/* Work Duration Section */}
           <section>
-            <div className="flex justify-between items-center mb-2.5">
+            <div className="flex justify-between items-center mb-1.5">
               <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Work Duration</label>
               <span className="text-[10px] font-semibold text-blue-500 bg-blue-500/10 px-2 py-0.5 rounded-full">{workMins} min</span>
             </div>
-            <div className="flex bg-slate-900 p-1 rounded-xl border border-slate-800 mb-2 shadow-inner">
+            <div className="flex bg-slate-900 p-1 rounded-xl border border-slate-800 mb-1.5 shadow-inner">
               {[15, 25, 45].map(preset => (
                 <button 
                   key={`work-${preset}`}
                   onClick={() => setWorkMins(preset)}
-                  className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all duration-200 ${workMins === preset ? 'bg-slate-800 text-white shadow-md' : 'text-slate-500 hover:text-slate-300'}`}
+                  className={`flex-1 py-1 text-xs font-semibold rounded-lg transition-all duration-200 ${workMins === preset ? 'bg-slate-800 text-white shadow-md' : 'text-slate-500 hover:text-slate-300'}`}
                 >
                   {preset}
                 </button>
@@ -86,23 +86,23 @@ const ControlPanel: React.FC<Props> = ({ remaining, status }) => {
               min="1"
               value={workMins} 
               onChange={(e) => setWorkMins(Number(e.target.value))}
-              className="w-full bg-slate-950 border border-slate-800 rounded-lg py-1.5 text-sm text-center font-mono focus:outline-none focus:border-blue-500/50 transition-colors placeholder:text-slate-700" 
+              className="w-full bg-slate-950 border border-slate-800 rounded-lg py-1 text-sm text-center font-mono focus:outline-none focus:border-blue-500/50 transition-colors placeholder:text-slate-700" 
               placeholder="Custom Work Mins"
             />
           </section>
 
           {/* Break Duration Section */}
           <section>
-            <div className="flex justify-between items-center mb-2.5">
+            <div className="flex justify-between items-center mb-1.5">
               <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Break Duration</label>
               <span className="text-[10px] font-semibold text-green-500 bg-green-500/10 px-2 py-0.5 rounded-full">{breakMins} min</span>
             </div>
-            <div className="flex bg-slate-900 p-1 rounded-xl border border-slate-800 mb-2 shadow-inner">
+            <div className="flex bg-slate-900 p-1 rounded-xl border border-slate-800 mb-1.5 shadow-inner">
               {[5, 10, 15].map(preset => (
                 <button 
                   key={`break-${preset}`}
                   onClick={() => setBreakMins(preset)}
-                  className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all duration-200 ${breakMins === preset ? 'bg-slate-800 text-white shadow-md' : 'text-slate-500 hover:text-slate-300'}`}
+                  className={`flex-1 py-1 text-xs font-semibold rounded-lg transition-all duration-200 ${breakMins === preset ? 'bg-slate-800 text-white shadow-md' : 'text-slate-500 hover:text-slate-300'}`}
                 >
                   {preset}
                 </button>
@@ -113,7 +113,7 @@ const ControlPanel: React.FC<Props> = ({ remaining, status }) => {
               min="1"
               value={breakMins} 
               onChange={(e) => setBreakMins(Number(e.target.value))}
-              className="w-full bg-slate-950 border border-slate-800 rounded-lg py-1.5 text-sm text-center font-mono focus:outline-none focus:border-green-500/50 transition-colors placeholder:text-slate-700" 
+              className="w-full bg-slate-950 border border-slate-800 rounded-lg py-1 text-sm text-center font-mono focus:outline-none focus:border-green-500/50 transition-colors placeholder:text-slate-700" 
               placeholder="Custom Break Mins"
             />
           </section>
@@ -121,18 +121,18 @@ const ControlPanel: React.FC<Props> = ({ remaining, status }) => {
       )}
 
       {/* Actions */}
-      <div className="flex gap-3 mt-auto">
+      <div className="flex gap-3 mt-auto mb-2">
         {status === "Idle" ? (
           <>
             <button
               onClick={handleStart}
-              className="flex-[2] bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 active:scale-[0.98] transition-all py-3.5 rounded-2xl font-bold text-sm shadow-lg shadow-blue-500/20 border-t border-blue-400/20"
+              className="flex-[2] bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 active:scale-[0.98] transition-all py-3 rounded-2xl font-bold text-sm shadow-lg shadow-blue-500/20 border-t border-blue-400/20"
             >
               Start Work
             </button>
             <button
               onClick={handleStartBreak}
-              className="flex-1 bg-slate-900 hover:bg-slate-800 active:scale-[0.98] transition-all py-3.5 rounded-2xl font-semibold text-sm border border-slate-800 text-slate-400 hover:text-slate-200"
+              className="flex-1 bg-slate-900 hover:bg-slate-800 active:scale-[0.98] transition-all py-3 rounded-2xl font-semibold text-sm border border-slate-800 text-slate-400 hover:text-slate-200"
             >
               Break
             </button>
@@ -140,13 +140,14 @@ const ControlPanel: React.FC<Props> = ({ remaining, status }) => {
         ) : (
           <button
             onClick={handleStop}
-            className="flex-1 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 active:scale-[0.98] transition-all py-3.5 rounded-2xl font-bold text-sm shadow-lg shadow-red-500/20 border-t border-red-400/20"
+            className="flex-1 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 active:scale-[0.98] transition-all py-3 rounded-2xl font-bold text-sm shadow-lg shadow-red-500/20 border-t border-red-400/20"
           >
             Reset Session
           </button>
         )}
       </div>
     </div>
+
   );
 };
 
