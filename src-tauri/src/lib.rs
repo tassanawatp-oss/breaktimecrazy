@@ -1,8 +1,12 @@
 mod state;
+mod window_manager;
 
 use std::sync::Arc;
 use tauri::Manager;
+use tauri::menu::{Menu, MenuItem};
+use tauri::tray::{TrayIconBuilder, TrayIconEvent};
 use state::{AppState, AppStatus, start_timer_loop};
+use window_manager::toggle_main_window;
 
 #[tauri::command]
 async fn start_timer(
@@ -40,6 +44,27 @@ pub fn run() {
         .setup(move |app| {
             #[cfg(target_os = "macos")]
             app.set_activation_policy(tauri::ActivationPolicy::Accessory);
+
+            let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>).unwrap();
+            let menu = Menu::with_items(app, &[&quit_i]).unwrap();
+
+            let _tray = TrayIconBuilder::new()
+                .icon(app.default_window_icon().unwrap().clone())
+                .menu(&menu)
+                .on_menu_event(|app, event| match event.id.as_ref() {
+                    "quit" => {
+                        app.exit(0);
+                    }
+                    _ => {}
+                })
+                .on_tray_icon_event(|tray, event| {
+                    if let TrayIconEvent::Click { .. } = event {
+                        let app = tray.app_handle();
+                        toggle_main_window(app);
+                    }
+                })
+                .build(app)
+                .unwrap();
             
             let app_handle = app.handle().clone();
             let state_clone = state.clone();

@@ -2,6 +2,7 @@ use serde::Serialize;
 use std::sync::Arc;
 use tokio::sync::Mutex;
 use tauri::{AppHandle, Emitter};
+use crate::window_manager::{show_break_screens, close_break_screens};
 
 #[derive(Clone, Serialize, PartialEq, Debug)]
 pub enum AppStatus {
@@ -39,9 +40,11 @@ pub async fn start_timer_loop(app_handle: AppHandle, state: Arc<AppState>) {
                     *status = AppStatus::OnBreak;
                     *remaining = 300; // 5 min break default
                     let _ = app_handle.emit("state-change", "OnBreak");
+                    show_break_screens(&app_handle);
                 } else {
                     *status = AppStatus::Idle;
                     let _ = app_handle.emit("state-change", "Idle");
+                    close_break_screens(&app_handle);
                 }
             }
         }
