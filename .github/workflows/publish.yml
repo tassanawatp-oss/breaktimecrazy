@@ -3,8 +3,11 @@ name: "Publish Release"
 on:
   push:
     branches:
-      - main # หรือเปลี่ยนเป็นชื่อ branch หลักของคุณ เช่น 'master'
-  workflow_dispatch: # ช่วยให้กดรันเองได้จากหน้าเว็บ GitHub
+      - main
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   publish:
