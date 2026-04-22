@@ -14,6 +14,7 @@ pub enum AppStatus {
 pub struct AppState {
     pub status: Arc<Mutex<AppStatus>>,
     pub remaining_secs: Arc<Mutex<u32>>,
+    pub break_secs: Arc<Mutex<u32>>,
 }
 
 impl AppState {
@@ -21,7 +22,19 @@ impl AppState {
         Self {
             status: Arc::new(Mutex::new(AppStatus::Idle)),
             remaining_secs: Arc::new(Mutex::new(0)),
+            break_secs: Arc::new(Mutex::new(300)),
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[tokio::test]
+    async fn test_app_state_new() {
+        let state = AppState::new();
+        assert_eq!(*state.break_secs.lock().await, 300);
     }
 }
 
@@ -38,7 +51,7 @@ pub async fn start_timer_loop(app_handle: AppHandle, state: Arc<AppState>) {
             if *remaining == 0 {
                 if *status == AppStatus::Working {
                     *status = AppStatus::OnBreak;
-                    *remaining = 300; // 5 min break default
+                    *remaining = *state.break_secs.lock().await;
                     let _ = app_handle.emit("state-change", "OnBreak");
                     show_break_screens(&app_handle);
                 } else {

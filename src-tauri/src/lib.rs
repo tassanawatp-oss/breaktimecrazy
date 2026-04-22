@@ -10,13 +10,16 @@ use window_manager::toggle_main_window;
 #[tauri::command]
 async fn start_timer(
     work_mins: u32,
+    break_mins: u32,
     state: tauri::State<'_, Arc<AppState>>,
 ) -> Result<(), String> {
     let mut status = state.status.lock().await;
     let mut remaining = state.remaining_secs.lock().await;
+    let mut break_secs = state.break_secs.lock().await;
     
     *status = AppStatus::Working;
     *remaining = work_mins * 60;
+    *break_secs = break_mins * 60;
     
     Ok(())
 }
