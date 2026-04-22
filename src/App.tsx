@@ -36,10 +36,11 @@ function App() {
     };
   }, []);
 
-  if (label.startsWith("break_screen") || status === "OnBreak") {
+  if (label.startsWith("break_screen")) {
     return <BreakOverlay remaining={remaining} />;
   }
 
+  // "main" window always shows ControlPanel (Setting screen)
   return (
     <ControlPanel 
       remaining={remaining} 

@@ -2,11 +2,19 @@ use tauri::{AppHandle, Manager, WebviewWindowBuilder, WebviewUrl};
 
 pub fn toggle_main_window(app: &AppHandle) {
     if let Some(window) = app.get_webview_window("main") {
-        if window.is_visible().unwrap_or(false) {
+        let is_visible = window.is_visible().unwrap_or(false);
+        if is_visible {
             window.hide().unwrap();
         } else {
+            // Ensure window is at the correct level and focused
             window.show().unwrap();
             window.set_focus().unwrap();
+            
+            #[cfg(target_os = "macos")]
+            {
+                // Force the application to become active to bring window to front
+                app.set_activation_policy(tauri::ActivationPolicy::Accessory).unwrap_or(());
+            }
         }
     }
 }
