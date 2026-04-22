@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 
 interface Props {
@@ -6,6 +7,9 @@ interface Props {
 }
 
 const ControlPanel: React.FC<Props> = ({ remaining, status }) => {
+  const [workMins, setWorkMins] = useState<number>(25);
+  const [breakMins, setBreakMins] = useState<number>(5);
+
   const formatTime = (secs: number) => {
     const m = Math.floor(secs / 60);
     const s = secs % 60;
@@ -13,7 +17,9 @@ const ControlPanel: React.FC<Props> = ({ remaining, status }) => {
   };
 
   const handleStart = async () => {
-    await invoke("start_timer", { workMins: 25 });
+    const safeWorkMins = Math.max(1, workMins);
+    const safeBreakMins = Math.max(1, breakMins);
+    await invoke("start_timer", { workMins: safeWorkMins, breakMins: safeBreakMins });
   };
 
   const handleStop = async () => {
@@ -29,6 +35,58 @@ const ControlPanel: React.FC<Props> = ({ remaining, status }) => {
       <div className="text-6xl font-black mb-8 font-mono tracking-tighter">
         {formatTime(remaining)}
       </div>
+
+      {status === "Idle" && (
+        <div className="w-full bg-slate-800/50 p-4 rounded-xl mb-6">
+          <div className="mb-4">
+            <div className="text-xs font-bold text-slate-400 mb-2 uppercase tracking-wider">Work Duration (mins)</div>
+            <div className="flex gap-2 mb-2">
+              {[15, 25, 45].map(preset => (
+                <button 
+                  key={`work-${preset}`}
+                  onClick={() => setWorkMins(preset)}
+                  className={`flex-1 py-1 text-sm rounded border ${workMins === preset ? 'bg-blue-600 border-blue-500 text-white' : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-slate-600'}`}
+                >
+                  {preset}
+                </button>
+              ))}
+            </div>
+            <div className="flex items-center gap-2">
+              <input 
+                type="number" 
+                min="1"
+                value={workMins} 
+                onChange={(e) => setWorkMins(Number(e.target.value))}
+                className="w-full bg-slate-900 border border-slate-700 rounded p-1.5 text-sm text-center focus:outline-none focus:border-blue-500" 
+              />
+            </div>
+          </div>
+
+          <div>
+            <div className="text-xs font-bold text-slate-400 mb-2 uppercase tracking-wider">Break Duration (mins)</div>
+            <div className="flex gap-2 mb-2">
+              {[5, 10, 15].map(preset => (
+                <button 
+                  key={`break-${preset}`}
+                  onClick={() => setBreakMins(preset)}
+                  className={`flex-1 py-1 text-sm rounded border ${breakMins === preset ? 'bg-green-600 border-green-500 text-white' : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-slate-600'}`}
+                >
+                  {preset}
+                </button>
+              ))}
+            </div>
+            <div className="flex items-center gap-2">
+              <input 
+                type="number" 
+                min="1"
+                value={breakMins} 
+                onChange={(e) => setBreakMins(Number(e.target.value))}
+                className="w-full bg-slate-900 border border-slate-700 rounded p-1.5 text-sm text-center focus:outline-none focus:border-green-500" 
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="flex gap-4 w-full">
         {status === "Idle" ? (
