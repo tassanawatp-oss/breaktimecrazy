@@ -19,7 +19,7 @@ pub fn show_break_screens(app: &AppHandle) {
             let pos = monitor.position();
             let size = monitor.size();
 
-            let _window = WebviewWindowBuilder::new(app, label, WebviewUrl::App("index.html".into())) // Pointing to main index but will use route or conditional render
+            let window = WebviewWindowBuilder::new(app, label, WebviewUrl::App("index.html".into())) // Pointing to main index but will use route or conditional render
                 .title("Break Time")
                 .fullscreen(true)
                 .always_on_top(true)
@@ -29,6 +29,11 @@ pub fn show_break_screens(app: &AppHandle) {
                 .inner_size(size.width as f64, size.height as f64)
                 .build()
                 .unwrap();
+            
+            let _ = window.set_shadow(false);
+            // In v2, transparency might need to be set via the window handle
+            // But we'll trust the decorators(false) and React styling for now
+            // Or try window.set_transparent(true) if it's available
         }
     }
 }
