@@ -2,7 +2,6 @@ mod state;
 mod window_manager;
 
 use std::sync::Arc;
-use tauri::Manager;
 use tauri::menu::{Menu, MenuItem};
 use tauri::tray::{TrayIconBuilder, TrayIconEvent};
 use state::{AppState, AppStatus, start_timer_loop};

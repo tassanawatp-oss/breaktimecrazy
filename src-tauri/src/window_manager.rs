@@ -24,7 +24,6 @@ pub fn show_break_screens(app: &AppHandle) {
                 .fullscreen(true)
                 .always_on_top(true)
                 .decorations(false)
-                .transparent(true)
                 .closable(false)
                 .position(pos.x as f64, pos.y as f64)
                 .inner_size(size.width as f64, size.height as f64)
