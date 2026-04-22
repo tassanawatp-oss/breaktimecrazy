@@ -5,12 +5,14 @@ use std::sync::Arc;
 use tauri::menu::{Menu, MenuItem};
 use tauri::tray::{TrayIconBuilder, TrayIconEvent};
 use state::{AppState, AppStatus, start_timer_loop};
-use window_manager::toggle_main_window;
+use tauri::Emitter;
+use window_manager::{toggle_main_window, close_break_screens};
 
 #[tauri::command]
 async fn start_timer(
     work_mins: u32,
     break_mins: u32,
+    app_handle: tauri::AppHandle,
     state: tauri::State<'_, Arc<AppState>>,
 ) -> Result<(), String> {
     let mut status = state.status.lock().await;
@@ -20,12 +22,16 @@ async fn start_timer(
     *status = AppStatus::Working;
     *remaining = work_mins * 60;
     *break_secs = break_mins * 60;
+
+    let _ = app_handle.emit("state-change", "Working");
+    let _ = app_handle.emit("timer-tick", *remaining);
     
     Ok(())
 }
 
 #[tauri::command]
 async fn stop_timer(
+    app_handle: tauri::AppHandle,
     state: tauri::State<'_, Arc<AppState>>,
 ) -> Result<(), String> {
     let mut status = state.status.lock().await;
@@ -33,6 +39,10 @@ async fn stop_timer(
     
     *status = AppStatus::Idle;
     *remaining = 0;
+
+    let _ = app_handle.emit("state-change", "Idle");
+    let _ = app_handle.emit("timer-tick", 0);
+    close_break_screens(&app_handle);
     
     Ok(())
 }
