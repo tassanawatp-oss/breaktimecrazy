@@ -12,12 +12,15 @@ function App() {
   useEffect(() => {
     const window = getCurrentWebviewWindow();
     setLabel(window.label);
+    console.log(`Window initialized: ${window.label}`);
 
     const unlistenTick = listen<number>("timer-tick", (event) => {
+      console.log(`[${window.label}] Tick received: ${event.payload}`);
       setRemaining(event.payload);
     });
 
     const unlistenState = listen<string>("state-change", (event) => {
+      console.log(`[${window.label}] State change: ${event.payload}`);
       setStatus(event.payload);
     });
 

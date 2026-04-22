@@ -35,6 +35,7 @@ async fn start_break(
     app_handle: tauri::AppHandle,
     state: tauri::State<'_, Arc<AppState>>,
 ) -> Result<(), String> {
+    println!("Starting immediate break: {} mins", break_mins);
     let mut status = state.status.lock().await;
     let mut remaining = state.remaining_secs.lock().await;
     let mut break_secs = state.break_secs.lock().await;
