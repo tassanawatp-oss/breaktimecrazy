@@ -42,3 +42,11 @@ git push -u origin main --force
 npm run tauri build
 ```
 ไฟล์ที่ได้จะอยู่ที่: `src-tauri/target/release/bundle/dmg/`
+
+## กรณีแก้ไขเสร็จ ใช้ Github
+
+```bash
+ git add .
+ git commit -m "Fix tauri config and use universal target flag"
+ git push
+```
