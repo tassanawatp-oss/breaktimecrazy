@@ -10,6 +10,7 @@
     "opener:default",
     "core:event:allow-listen",
     "core:event:allow-emit",
-    "core:webview:allow-get-webview-window"
+    "core:webview:default",
+    "core:window:default"
   ]
 }
