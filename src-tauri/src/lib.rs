@@ -69,6 +69,25 @@ async fn stop_timer(
     Ok(())
 }
 
+#[derive(serde::Serialize)]
+struct TimerState {
+    status: AppStatus,
+    remaining_secs: u32,
+}
+
+#[tauri::command]
+async fn get_timer_state(
+    state: tauri::State<'_, Arc<AppState>>,
+) -> Result<TimerState, String> {
+    let status = state.status.lock().await;
+    let remaining = state.remaining_secs.lock().await;
+    
+    Ok(TimerState {
+        status: status.clone(),
+        remaining_secs: *remaining,
+    })
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let state = Arc::new(AppState::new());
@@ -110,7 +129,7 @@ pub fn run() {
             Ok(())
         })
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![start_timer, stop_timer, start_break])
+        .invoke_handler(tauri::generate_handler![start_timer, stop_timer, start_break, get_timer_state])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

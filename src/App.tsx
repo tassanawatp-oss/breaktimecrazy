@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { listen } from "@tauri-apps/api/event";
+import { invoke } from "@tauri-apps/api/core";
 import ControlPanel from "./components/ControlPanel";
 import BreakOverlay from "./components/BreakOverlay";
 
@@ -14,13 +15,18 @@ function App() {
     setLabel(window.label);
     console.log(`Window initialized: ${window.label}`);
 
+    // Fetch initial state
+    invoke("get_timer_state").then((state: any) => {
+      console.log(`[${window.label}] Initial state fetched:`, state);
+      setRemaining(state.remaining_secs);
+      setStatus(state.status);
+    });
+
     const unlistenTick = listen<number>("timer-tick", (event) => {
-      console.log(`[${window.label}] Tick received: ${event.payload}`);
       setRemaining(event.payload);
     });
 
     const unlistenState = listen<string>("state-change", (event) => {
-      console.log(`[${window.label}] State change: ${event.payload}`);
       setStatus(event.payload);
     });
 
@@ -30,7 +36,7 @@ function App() {
     };
   }, []);
 
-  if (label.startsWith("break_screen")) {
+  if (label.startsWith("break_screen") || status === "OnBreak") {
     return <BreakOverlay remaining={remaining} />;
   }
 
