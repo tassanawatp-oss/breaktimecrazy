@@ -6,7 +6,7 @@ use tauri::menu::{Menu, MenuItem};
 use tauri::tray::{TrayIconBuilder, TrayIconEvent};
 use state::{AppState, AppStatus, start_timer_loop};
 use tauri::Emitter;
-use window_manager::{toggle_main_window, close_break_screens};
+use window_manager::{toggle_main_window, close_break_screens, hide_main_window};
 
 #[tauri::command]
 async fn start_timer(
@@ -25,6 +25,8 @@ async fn start_timer(
 
     let _ = app_handle.emit("state-change", "Working");
     let _ = app_handle.emit("timer-tick", *remaining);
+    
+    hide_main_window(&app_handle);
     
     Ok(())
 }
@@ -47,6 +49,8 @@ async fn start_break(
     let _ = app_handle.emit("state-change", "OnBreak");
     let _ = app_handle.emit("timer-tick", *remaining);
     window_manager::show_break_screens(&app_handle);
+    
+    hide_main_window(&app_handle);
     
     Ok(())
 }

@@ -11,6 +11,12 @@ pub fn toggle_main_window(app: &AppHandle) {
     }
 }
 
+pub fn hide_main_window(app: &AppHandle) {
+    if let Some(window) = app.get_webview_window("main") {
+        let _ = window.hide();
+    }
+}
+
 pub fn show_break_screens(app: &AppHandle) {
     let monitors = app.available_monitors().unwrap();
     for (i, monitor) in monitors.iter().enumerate() {
