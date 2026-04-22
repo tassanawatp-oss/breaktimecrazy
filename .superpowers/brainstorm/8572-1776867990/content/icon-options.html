@@ -1,0 +1,105 @@
+<h2>เลือกแบบ Icon ที่คุณชอบ (Abstract Layers)</h2>
+<p class="subtitle">สไตล์ Glassmorphism ที่เน้นความลึกและมิติของกระจกซ้อนกัน</p>
+
+<div class="cards">
+  <!-- Option A: Cool Blue -->
+  <div class="card" data-choice="cool-blue" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #f0f4f8; padding: 40px; display: flex; justify-content: center; align-items: center;">
+      <svg width="120" height="120" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="gradA" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#74ebd5;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#acb6e5;stop-opacity:1" />
+          </linearGradient>
+          <filter id="blurA" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="20" />
+          </filter>
+        </defs>
+        <!-- Background Glow -->
+        <circle cx="512" cy="512" r="400" fill="url(#gradA)" opacity="0.15" filter="url(#blurA)" />
+        <!-- Layer 1: Back glass -->
+        <path d="M300 200 L724 200 L650 512 L724 824 L300 824 L374 512 Z" fill="white" opacity="0.1" stroke="white" stroke-width="2" />
+        <!-- Layer 2: Main Hourglass Body -->
+        <path d="M350 250 L674 250 L600 512 L674 774 L350 774 L424 512 Z" fill="white" opacity="0.2" stroke="white" stroke-width="4" style="backdrop-filter: blur(10px);" />
+        <!-- Layer 3: Accent Layers -->
+        <rect x="350" y="230" width="324" height="40" rx="10" fill="white" opacity="0.4" />
+        <rect x="350" y="754" width="324" height="40" rx="10" fill="white" opacity="0.4" />
+        <!-- The "Sand" (Blue gradient) -->
+        <path d="M424 512 L600 512 L640 650 L384 650 Z" fill="url(#gradA)" opacity="0.8" />
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>Cool Blue Glass</h3>
+      <p>เน้นความสะอาดตา ดูเป็นมืออาชีพ เข้ากับ macOS ได้ดีที่สุด</p>
+    </div>
+  </div>
+
+  <!-- Option B: Vibrant Sunset -->
+  <div class="card" data-choice="vibrant-sunset" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #fff5f5; padding: 40px; display: flex; justify-content: center; align-items: center;">
+      <svg width="120" height="120" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="gradB" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ff9a9e;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#fecfef;stop-opacity:1" />
+          </linearGradient>
+          <filter id="blurB" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="15" />
+          </filter>
+        </defs>
+        <!-- Background Glow -->
+        <circle cx="512" cy="512" r="350" fill="url(#gradB)" opacity="0.2" filter="url(#blurB)" />
+        <!-- Layer 1: Abstract Shapes -->
+        <rect x="480" y="150" width="64" height="724" rx="32" fill="white" opacity="0.1" transform="rotate(45 512 512)" />
+        <rect x="480" y="150" width="64" height="724" rx="32" fill="white" opacity="0.1" transform="rotate(-45 512 512)" />
+        <!-- Layer 2: Hourglass Outline -->
+        <path d="M350 250 C 350 250, 450 512, 350 774 L 674 774 C 674 774, 574 512, 674 250 Z" fill="white" opacity="0.2" stroke="white" stroke-width="4" />
+        <!-- Layer 3: Glass Plate -->
+        <rect x="400" y="480" width="224" height="64" rx="10" fill="white" opacity="0.3" stroke="white" stroke-width="1" />
+        <!-- The "Sand" (Sunset gradient) -->
+        <path d="M480 550 C 480 550, 400 750, 380 774 L 644 774 C 624 750, 544 550, 544 550 Z" fill="url(#gradB)" />
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>Vibrant Sunset</h3>
+      <p>โทนสีสดใส มีพลังงาน สื่อถึงความ "Crazy" เล็กน้อยตามชื่อแอป</p>
+    </div>
+  </div>
+
+  <!-- Option C: Dark Tech -->
+  <div class="card" data-choice="dark-tech" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #1a1a1a; padding: 40px; display: flex; justify-content: center; align-items: center;">
+      <svg width="120" height="120" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="gradC" x1="0%" y1="100%" x2="0%" y2="0%">
+            <stop offset="0%" style="stop-color:#00d2ff;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#3a7bd5;stop-opacity:1" />
+          </linearGradient>
+        </defs>
+        <!-- Layer 1: Sharp Glass Layers -->
+        <path d="M300 200 L724 200 L512 512 Z" fill="white" opacity="0.05" />
+        <path d="M300 824 L724 824 L512 512 Z" fill="white" opacity="0.05" />
+        <!-- Layer 2: Main Frame -->
+        <path d="M350 250 L674 250 L674 280 L530 512 L674 744 L674 774 L350 774 L350 744 L494 512 L350 280 Z" fill="white" opacity="0.1" stroke="white" stroke-width="2" />
+        <!-- Layer 3: Glowing Core -->
+        <path d="M512 512 L630 700 L394 700 Z" fill="url(#gradC)" opacity="0.6">
+          <animate attributeName="opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite" />
+        </path>
+        <circle cx="512" cy="512" r="10" fill="#00d2ff" />
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>Dark Mode Neon</h3>
+      <p>เน้นความเท่ ล้ำสมัย ดูเหมือน Gadget ราคาแพงในอนาคต</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>ทำไมถึงเป็น Abstract Layers?</h3>
+  <ul>
+    <li><strong>Depth:</strong> การใช้ความโปร่งแสงซ้อนกันสร้างมิติที่ทำให้ Icon ดูไม่แบน</li>
+    <li><strong>Focus:</strong> ตัวนาฬิกาทรายถูกดัดแปลงให้เป็นรูปทรงเลขาคณิตที่ดูเรียบง่ายแต่จำง่าย</li>
+    <li><strong>Modern:</strong> เข้ากับ UI ของทั้ง macOS (Sonoma/Sequoia) และ Windows 11</li>
+  </ul>
+</div>

@@ -1,0 +1,41 @@
+<h2>BreakTimeCrazy - Timer Settings Options</h2>
+<p class="subtitle">Exploring how the Hybrid (Preset + Input) timer control would look</p>
+
+<div class="cards">
+  <div class="card" data-choice="compact-grid" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #1e293b; padding: 20px; color: white;">
+      <div style="font-size: 14px; color: #94a3b8; margin-bottom: 10px;">WORK DURATION</div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px;">
+        <button class="mock-button" style="padding: 4px; font-size: 12px; background: #334155;">15m</button>
+        <button class="mock-button" style="padding: 4px; font-size: 12px; background: #3b82f6;">25m</button>
+        <button class="mock-button" style="padding: 4px; font-size: 12px; background: #334155;">45m</button>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <input class="mock-input" style="flex: 1; padding: 4px; font-size: 12px;" placeholder="Custom">
+        <span style="font-size: 12px; color: #64748b;">min</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Compact Grid</h3>
+      <p>Quick presets with a small input below. Best for small tray windows.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="tabbed-input" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #1e293b; padding: 20px; color: white;">
+      <div style="font-size: 14px; color: #94a3b8; margin-bottom: 10px;">SET TIMER</div>
+      <div style="display: flex; gap: 4px; margin-bottom: 12px; border-bottom: 1px solid #334155;">
+        <div style="padding: 4px 12px; border-bottom: 2px solid #3b82f6; font-size: 12px;">Presets</div>
+        <div style="padding: 4px 12px; color: #64748b; font-size: 12px;">Manual</div>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <button class="mock-button" style="flex: 1; padding: 8px; font-size: 12px; background: #334155;">25m</button>
+        <button class="mock-button" style="flex: 1; padding: 8px; font-size: 12px; background: #334155;">50m</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Tabbed Control</h3>
+      <p>Separates presets and manual input into tabs for a cleaner look.</p>
+    </div>
+  </div>
+</div>

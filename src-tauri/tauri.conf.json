@@ -2,7 +2,7 @@
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "BreakTimeCrazy",
   "version": "0.1.0",
-  "identifier": "com.breaktimecrazy.app",
+  "identifier": "com.breaktimecrazy.dev",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",

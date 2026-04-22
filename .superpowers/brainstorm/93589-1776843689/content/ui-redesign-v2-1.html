@@ -1,0 +1,75 @@
+<h2>BreakTimeCrazy - UI Redesign (v2.1)</h2>
+<p class="subtitle">Complete functional design with Work & Break durations in a polished macOS style</p>
+
+<div class="mockup" style="max-width: 360px; margin: 0 auto;">
+  <div class="mockup-header">Polished Control Panel</div>
+  <div class="mockup-body" style="background: #020617; color: white; display: flex; flex-direction: column; height: 520px; padding: 24px; font-family: -apple-system, sans-serif; overflow-y: auto;">
+    
+    <!-- Header -->
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="width: 32px; height: 32px; background: linear-gradient(135deg, #3b82f6, #2563eb); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">BT</div>
+        <div>
+          <div style="font-size: 14px; font-weight: 600;">BreakTimeCrazy</div>
+          <div style="font-size: 10px; color: #64748b;">Ready to focus?</div>
+        </div>
+      </div>
+      <div style="width: 20px; height: 20px; background: #1e293b; border-radius: 50%; opacity: 0.5;"></div>
+    </div>
+
+    <!-- Timer Display Card -->
+    <div style="text-align: center; margin-bottom: 24px; padding: 24px; background: linear-gradient(180deg, #0f172a, #020617); border-radius: 20px; border: 1px solid #1e293b; box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
+      <div style="font-size: 10px; font-weight: 700; color: #3b82f6; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;">Time Remaining</div>
+      <div style="font-size: 64px; font-weight: 800; letter-spacing: -3px; font-variant-numeric: tabular-nums; line-height: 1;">25:00</div>
+    </div>
+
+    <!-- Configuration Area -->
+    <div style="display: flex; flex-direction: column; gap: 20px; margin-bottom: 32px;">
+      
+      <!-- Work Duration Section -->
+      <div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <div style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Work Duration</div>
+          <div style="font-size: 11px; color: #3b82f6; font-weight: 600;">25 min</div>
+        </div>
+        <div style="display: flex; background: #0f172a; padding: 4px; border-radius: 12px; border: 1px solid #1e293b; margin-bottom: 8px;">
+          <div style="flex: 1; text-align: center; padding: 8px; font-size: 12px; color: #64748b;">15</div>
+          <div style="flex: 1; text-align: center; padding: 8px; font-size: 12px; background: #1e293b; color: white; border-radius: 8px; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">25</div>
+          <div style="flex: 1; text-align: center; padding: 8px; font-size: 12px; color: #64748b;">45</div>
+        </div>
+        <input class="mock-input" style="width: 100%; height: 36px; background: #020617; border: 1px solid #1e293b; border-radius: 8px; text-align: center; font-size: 13px;" value="25">
+      </div>
+
+      <!-- Break Duration Section -->
+      <div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <div style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Break Duration</div>
+          <div style="font-size: 11px; color: #10b981; font-weight: 600;">5 min</div>
+        </div>
+        <div style="display: flex; background: #0f172a; padding: 4px; border-radius: 12px; border: 1px solid #1e293b; margin-bottom: 8px;">
+          <div style="flex: 1; text-align: center; padding: 8px; font-size: 12px; background: #1e293b; color: white; border-radius: 8px; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">5</div>
+          <div style="flex: 1; text-align: center; padding: 8px; font-size: 12px; color: #64748b;">10</div>
+          <div style="flex: 1; text-align: center; padding: 8px; font-size: 12px; color: #64748b;">15</div>
+        </div>
+        <input class="mock-input" style="width: 100%; height: 36px; background: #020617; border: 1px solid #1e293b; border-radius: 8px; text-align: center; font-size: 13px;" value="5">
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div style="display: flex; gap: 12px;">
+      <button class="mock-button" style="flex: 2; background: linear-gradient(135deg, #3b82f6, #2563eb); height: 48px; border-radius: 14px; font-weight: 700; font-size: 15px; border: none; box-shadow: 0 8px 15px rgba(37, 99, 235, 0.25);">Start Work</button>
+      <button class="mock-button" style="flex: 1; background: #0f172a; height: 48px; border-radius: 14px; font-weight: 600; font-size: 14px; border: 1px solid #1e293b; color: #94a3b8;">Break</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <h3>ความเปลี่ยนแปลงในดีไซน์ v2.1:</h3>
+  <ul>
+    <li><strong>Full Feature Set:</strong> รวมทั้ง Work และ Break Duration เข้าไว้ด้วยกัน โดยแยกสี (Blue สำหรับ Work, Green สำหรับ Break) เพื่อความชัดเจน</li>
+    <li><strong>Better Controls:</strong> ปุ่มเลือก Preset จัดวางแบบ Segmented Control ที่ดูเป็นระเบียบ และมีช่องกรอก Custom อยู่ด้านล่าง</li>
+    <li><strong>Visual Hierarchy:</strong> เน้นตัวเลขเวลาให้โดดเด่นที่สุดด้วยการใช้ Gradient Background และขนาดที่ใหญ่</li>
+    <li><strong>Modern Aesthetics:</strong> ใช้ขอบโค้งมน (Radius) ที่กว้างขึ้น และการเล่นระดับเลเยอร์ด้วยเงา (Shadow)</li>
+  </ul>
+</div>
