@@ -32,95 +32,116 @@ const ControlPanel: React.FC<Props> = ({ remaining, status }) => {
   };
 
   return (
-    <div className="h-screen w-screen bg-slate-900 text-white flex flex-col items-center justify-center p-6 rounded-xl border border-slate-800 shadow-2xl">
-      <div className="text-sm font-semibold text-slate-400 mb-2 tracking-widest uppercase">
-        {status === "Working" ? "Working" : "BreakTimeCrazy"}
+    <div className="h-screen w-screen bg-slate-950 text-white flex flex-col p-6 font-sans overflow-y-auto selection:bg-blue-500/30">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center font-bold text-sm shadow-lg shadow-blue-500/20">
+            BT
+          </div>
+          <div>
+            <div className="text-sm font-bold tracking-tight">BreakTimeCrazy</div>
+            <div className="text-[10px] text-slate-500 font-medium">
+              {status === "Working" ? "Focusing..." : status === "OnBreak" ? "Resting..." : "Ready to focus?"}
+            </div>
+          </div>
+        </div>
+        <div className={`w-2 h-2 rounded-full ${status === "Working" ? "bg-blue-500 animate-pulse" : status === "OnBreak" ? "bg-green-500 animate-pulse" : "bg-slate-700"}`} />
       </div>
-      
-      <div className="text-6xl font-black mb-8 font-mono tracking-tighter">
-        {formatTime(remaining)}
+
+      {/* Timer Display Card */}
+      <div className="text-center mb-6 py-6 bg-gradient-to-b from-slate-900 to-slate-950 rounded-2xl border border-slate-800 shadow-xl shadow-black/40">
+        <div className="text-[10px] font-bold text-blue-500 uppercase tracking-[0.2em] mb-1">
+          Time Remaining
+        </div>
+        <div className="text-6xl font-extrabold tracking-tighter tabular-nums text-white drop-shadow-sm">
+          {formatTime(remaining)}
+        </div>
       </div>
 
       {status === "Idle" && (
-        <div className="w-full bg-slate-800/50 p-4 rounded-xl mb-6">
-          <div className="mb-4">
-            <div className="text-xs font-bold text-slate-400 mb-2 uppercase tracking-wider">Work Duration (mins)</div>
-            <div className="flex gap-2 mb-2">
+        <div className="flex flex-col gap-5 mb-8">
+          {/* Work Duration Section */}
+          <section>
+            <div className="flex justify-between items-center mb-2.5">
+              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Work Duration</label>
+              <span className="text-[10px] font-semibold text-blue-500 bg-blue-500/10 px-2 py-0.5 rounded-full">{workMins} min</span>
+            </div>
+            <div className="flex bg-slate-900 p-1 rounded-xl border border-slate-800 mb-2 shadow-inner">
               {[15, 25, 45].map(preset => (
                 <button 
                   key={`work-${preset}`}
                   onClick={() => setWorkMins(preset)}
-                  className={`flex-1 py-1 text-sm rounded border ${workMins === preset ? 'bg-blue-600 border-blue-500 text-white' : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-slate-600'}`}
+                  className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all duration-200 ${workMins === preset ? 'bg-slate-800 text-white shadow-md' : 'text-slate-500 hover:text-slate-300'}`}
                 >
                   {preset}
                 </button>
               ))}
             </div>
-            <div className="flex items-center gap-2">
-              <input 
-                type="number" 
-                min="1"
-                value={workMins} 
-                onChange={(e) => setWorkMins(Number(e.target.value))}
-                className="w-full bg-slate-900 border border-slate-700 rounded p-1.5 text-sm text-center focus:outline-none focus:border-blue-500" 
-              />
-            </div>
-          </div>
+            <input 
+              type="number" 
+              min="1"
+              value={workMins} 
+              onChange={(e) => setWorkMins(Number(e.target.value))}
+              className="w-full bg-slate-950 border border-slate-800 rounded-lg py-1.5 text-sm text-center font-mono focus:outline-none focus:border-blue-500/50 transition-colors placeholder:text-slate-700" 
+              placeholder="Custom Work Mins"
+            />
+          </section>
 
-          <div>
-            <div className="text-xs font-bold text-slate-400 mb-2 uppercase tracking-wider">Break Duration (mins)</div>
-            <div className="flex gap-2 mb-2">
+          {/* Break Duration Section */}
+          <section>
+            <div className="flex justify-between items-center mb-2.5">
+              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Break Duration</label>
+              <span className="text-[10px] font-semibold text-green-500 bg-green-500/10 px-2 py-0.5 rounded-full">{breakMins} min</span>
+            </div>
+            <div className="flex bg-slate-900 p-1 rounded-xl border border-slate-800 mb-2 shadow-inner">
               {[5, 10, 15].map(preset => (
                 <button 
                   key={`break-${preset}`}
                   onClick={() => setBreakMins(preset)}
-                  className={`flex-1 py-1 text-sm rounded border ${breakMins === preset ? 'bg-green-600 border-green-500 text-white' : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-slate-600'}`}
+                  className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all duration-200 ${breakMins === preset ? 'bg-slate-800 text-white shadow-md' : 'text-slate-500 hover:text-slate-300'}`}
                 >
                   {preset}
                 </button>
               ))}
             </div>
-            <div className="flex items-center gap-2">
-              <input 
-                type="number" 
-                min="1"
-                value={breakMins} 
-                onChange={(e) => setBreakMins(Number(e.target.value))}
-                className="w-full bg-slate-900 border border-slate-700 rounded p-1.5 text-sm text-center focus:outline-none focus:border-green-500" 
-              />
-            </div>
-          </div>
+            <input 
+              type="number" 
+              min="1"
+              value={breakMins} 
+              onChange={(e) => setBreakMins(Number(e.target.value))}
+              className="w-full bg-slate-950 border border-slate-800 rounded-lg py-1.5 text-sm text-center font-mono focus:outline-none focus:border-green-500/50 transition-colors placeholder:text-slate-700" 
+              placeholder="Custom Break Mins"
+            />
+          </section>
         </div>
       )}
 
-      <div className="flex gap-4 w-full">
+      {/* Actions */}
+      <div className="flex gap-3 mt-auto">
         {status === "Idle" ? (
           <>
             <button
               onClick={handleStart}
-              className="flex-1 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 transition-colors py-3 rounded-lg font-bold shadow-lg"
+              className="flex-[2] bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 active:scale-[0.98] transition-all py-3.5 rounded-2xl font-bold text-sm shadow-lg shadow-blue-500/20 border-t border-blue-400/20"
             >
               Start Work
             </button>
             <button
               onClick={handleStartBreak}
-              className="flex-1 bg-green-600 hover:bg-green-500 active:bg-green-700 transition-colors py-3 rounded-lg font-bold shadow-lg"
+              className="flex-1 bg-slate-900 hover:bg-slate-800 active:scale-[0.98] transition-all py-3.5 rounded-2xl font-semibold text-sm border border-slate-800 text-slate-400 hover:text-slate-200"
             >
-              Start Break
+              Break
             </button>
           </>
         ) : (
           <button
             onClick={handleStop}
-            className="flex-1 bg-red-600 hover:bg-red-500 active:bg-red-700 transition-colors py-3 rounded-lg font-bold shadow-lg"
+            className="flex-1 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 active:scale-[0.98] transition-all py-3.5 rounded-2xl font-bold text-sm shadow-lg shadow-red-500/20 border-t border-red-400/20"
           >
-            Reset
+            Reset Session
           </button>
         )}
-      </div>
-
-      <div className="mt-6 text-xs text-slate-500 italic">
-        {status === "Working" ? "Next break is coming soon..." : "Ready to focus?"}
       </div>
     </div>
   );
