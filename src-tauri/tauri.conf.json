@@ -16,12 +16,13 @@
         "title": "BreakTimeCrazy",
         "width": 320,
         "height": 540,
-        "resizable": false,
+        "resizable": true,
         "fullscreen": false,
         "visible": false,
-        "decorations": false,
+        "decorations": true,
         "transparent": true,
-        "alwaysOnTop": true
+        "alwaysOnTop": true,
+        "titleBarStyle": "Overlay"
       }
     ],
     "security": {

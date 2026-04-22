@@ -32,7 +32,10 @@ const ControlPanel: React.FC<Props> = ({ remaining, status }) => {
   };
 
   return (
-    <div className="h-screen w-screen bg-slate-950 text-white flex flex-col p-6 font-sans overflow-y-auto selection:bg-blue-500/30">
+    <div 
+      data-tauri-drag-region
+      className="h-screen w-screen bg-slate-950 text-white flex flex-col p-6 pt-8 font-sans overflow-y-auto selection:bg-blue-500/30"
+    >
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
