@@ -92,6 +92,11 @@ async fn get_timer_state(
     })
 }
 
+#[tauri::command]
+async fn quit_app(app_handle: tauri::AppHandle) {
+    app_handle.exit(0);
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let state = Arc::new(AppState::new());
@@ -133,7 +138,7 @@ pub fn run() {
             Ok(())
         })
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![start_timer, stop_timer, start_break, get_timer_state])
+        .invoke_handler(tauri::generate_handler![start_timer, stop_timer, start_break, get_timer_state, quit_app])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

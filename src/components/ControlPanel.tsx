@@ -49,7 +49,19 @@ const ControlPanel: React.FC<Props> = ({ remaining, status }) => {
             </div>
           </div>
         </div>
-        <div className={`w-2 h-2 rounded-full ${status === "Working" ? "bg-blue-500 animate-pulse" : status === "OnBreak" ? "bg-green-500 animate-pulse" : "bg-slate-700"}`} />
+        <div className="flex items-center gap-3">
+          <div className={`w-2 h-2 rounded-full ${status === "Working" ? "bg-blue-500 animate-pulse" : status === "OnBreak" ? "bg-green-500 animate-pulse" : "bg-slate-700"}`} />
+          <button 
+            onClick={() => invoke("quit_app")}
+            className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-slate-800 transition-colors text-slate-500 hover:text-red-400"
+            title="Quit Application"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Timer Display Card */}
